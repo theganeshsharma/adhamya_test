@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <title>Adhamya Log In</title>
+        <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+
+            .myForm{
+                margin-left: 25%;
+                margin-right: 25%;
+                margin-top:100px;
+                width: 50%;
+                height: auto;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 25px;
+                background: #fff !important;
+            }
+
+
+            /* For mobile devices */
+            @media (max-width: 600px){
+                .myForm
+                {
+                    margin-left: 5%;
+                    margin-top:100px;
+                    width: 90%;
+                    height: auto;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    padding: 25px;
+                    background: #fff !important;
+                }
+            }
+            
+            body
+            {
+                background: #555;
+            }
+            
+            .navbar {
+                font-family: Montserrat, sans-serif;
+                margin-bottom: 0;
+                background-color: #2d2d30;
+                border: 0;
+                font-size: 11px !important;
+                letter-spacing: 4px;
+                opacity: 0.9;
+            }
+            .navbar li a, .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
+            .navbar-nav li a:hover {
+                color: #fff !important;
+            }
+            .navbar-nav li.active a {
+                color: #fff !important;
+                background-color: #29292c !important;
+            }
+            .navbar-default .navbar-toggle {
+                border-color: transparent;
+            }
+
+            /* To position NavBar Logo */
+            .navbar-brand {
+                position: relative;
+                background: url(../../static/homePage/images/AdhamyaLogo.png);
+                width: 170px;
+                left: 15px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            .open .dropdown-toggle {
+                color: #fff;
+                background-color: #555 !important;
+            }
+            .dropdown-menu li a {
+                color: #fff !important;
+                background-color: #29292c !important;
+                border-color: #29292c !important;
+                
+            }
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+  </style>
+    </head>
+
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{% url 'homePage:index' %}">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'homePage:login' %}">LOG IN</a></li>
+                <li><a href="">REGISTER</a></li>
+                <li><a href="">PAYMENT</a></li>
+                <li><a href="">FESTS</a></li>
+                <li><a href="">TEAM</a></li>
+        
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">CLUBS
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="">CHETANA</a></li>
+                    <li><a href="">TATVA</a></li>
+                    <li><a href="">G2C2</a></li>
+                    <li><a href="">VINIMAYA</a></li>
+                    <li><a href="">PIXEL</a></li>
+                    <li><a href="">E-CELL</a></li>
+                    <li><a href="">CHAKRAVYUHA</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- To create Login form -->
+        <form role="form" class="myForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-user"></span> Email ID</label>
+              <input type="email" class="form-control" id="username" placeholder="Email ID">
+            </div>
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-lock "></span> Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="button" class="btn btn-success" name="button_login" >Log In</button>
+            <button type="button" class="btn btn-warning" name="button_signup">Sign Up</button>
+          </form>
+
+
+    </body>        
+</html>
