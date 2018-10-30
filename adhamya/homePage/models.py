@@ -1,27 +1,33 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.forms import TextInput
 from datetime import datetime
+from django.db.models.signals import post_save
+
+
+
 
 #-- User Database --
-class User(models.Model):
-    UserID = models.AutoField(primary_key=True)
-    FName = models.CharField("User's First Name", max_length=50)
-    LName = models.CharField("User's Last Name", max_length=50)
-    EmailID = models.EmailField("User's Email Id", max_length=254, unique=True)
-    Password = models.CharField("User's Password", max_length=50)
-    MobileNo = models.CharField("User's Mobile Number", max_length=10)
-    Type = models.CharField("User's Type", max_length=50)
-    IsLoggedIn = models.IntegerField()
+class Member(models.Model):
+    MobileNo = models.CharField("User's Mobile Number", max_length=10,blank=True)
+    category = models.CharField(max_length=10)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    usn = models.CharField("Student User's Mobile Number", null=True,blank=True,max_length=10)
+
+    uniqueID = models.CharField("Unique Reg ID", null=True,blank=True,max_length=64)
+
+    def __str__(self):
+        return self.user.first_name
+
+def create_member(sender,**kwargs):
+    if kwargs["created"]:
+        new_member=Member.objects.create(user=kwargs["instance"])
+
+post_save.connect(create_member,sender=User)
+
 
 #-- Payment Database --
-class Payment(models.Model):
-    PaymentID = models.AutoField(primary_key=True)
-    EventID = models.ForeignKey('Events', on_delete=models.CASCADE)
-    TransactionID = models.CharField("Transaction ID", max_length=50, unique=True)
-    TransactionDateTime = datetime.now()
-    EmailID = models.ForeignKey('User', on_delete=models.CASCADE)
-    Amount = models.IntegerField()
-    Status = models.IntegerField()
+'''
 
 #--NewsFeed Database--
 class NewsFeed(models.Model):
@@ -67,4 +73,6 @@ class Feedback(models.Model):
     EmailID = models.EmailField("Email Id", max_length=254)
     Comment = models.CharField("Feedback....", max_length=1000)
 
+
+'''
 # Create your models here.
