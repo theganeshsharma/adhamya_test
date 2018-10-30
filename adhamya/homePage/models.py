@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import TextInput
@@ -5,11 +6,18 @@ from datetime import datetime
 from django.db.models.signals import post_save
 
 
+class m_User_Types(models.Model):
+    type = models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(type)
+
 
 
 #-- User Database --
 class Member(models.Model):
     MobileNo = models.CharField("User's Mobile Number", max_length=10,blank=True)
+
     category = models.CharField(max_length=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     usn = models.CharField("Student User's Mobile Number", null=True,blank=True,max_length=10)
@@ -17,13 +25,19 @@ class Member(models.Model):
     uniqueID = models.CharField("Unique Reg ID", null=True,blank=True,max_length=64)
 
     def __str__(self):
-        return self.user.first_name
+
+    Type = models.ForeignKey(m_User_Types,"User's Type", on_delete=models.CASCADE,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+
 
 def create_member(sender,**kwargs):
     if kwargs["created"]:
         new_member=Member.objects.create(user=kwargs["instance"])
 
 post_save.connect(create_member,sender=User)
+
 
 
 #-- Payment Database --
